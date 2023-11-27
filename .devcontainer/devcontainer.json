@@ -1,0 +1,32 @@
+{
+    "name": "Automation 2.0 NA",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "forwardPorts": [8000],
+    "remoteUser": "vscode",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "davidanson.vscode-markdownlint",
+                "golang.Go",
+                "ms-azuretools.vscode-docker",
+                "ms-vscode.go",
+                "ms-vscode.makefile-tools",
+                "vscodevim.vim"
+            ]
+        },
+        "settings": {
+            "go.useLanguageServer": true
+        }
+    },
+    "runArgs": [
+        "-u",
+        "vscode",
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined",
+        // map SSH keys for Git
+        "-v", "${env:HOME}/.ssh:/home/vscode/.ssh:ro"
+    ]
+}
